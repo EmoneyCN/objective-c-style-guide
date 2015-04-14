@@ -17,7 +17,7 @@
 *  常量名（如宏定义、静态局部变量等）应该以小写字母 k 开头，使用驼峰格式分隔单词，如：`kInvalidHandle`，`kWritePerm`
 *  枚举，和bitmask使用`NS_ENUM`, `NS_OPTIONS`, 并跟上EM前缀
 
-  	```objc
+  ```objc
 		typedef NS_ENUM(NSInteger, UIViewAnimationTransition) {
     		UIViewAnimationTransitionNone,
 	    	UIViewAnimationTransitionFlipFromLeft
@@ -32,13 +32,13 @@
 		};
 
 	```
-		
+
 *  不必要的宏定义使用静态局部变量代替。
 
 	```objc
-      	#define kAlertTag 100 // Not so cool
-      	static NSInteger kAlertTag = 100; // cool
-  	```
+      #define kAlertTag 100 // Not so cool
+      static NSInteger kAlertTag = 100; // cool
+  ```
 
 *  自定义通自定义Key 等使用extern,写在对应的类里面
 	```objc
@@ -73,14 +73,14 @@
 	void GHAwesomeFunction(BOOL hasSomeArgs);
 	```
 
-* 对象的命名参照Apple Code Guides, 如NSDictionary, NSArray
+* 对象的命名参照Apple Code Guides, 如`NSDictionary`, `NSArray`
 
 	```objc
-	NSDictionary *stocks; //good
+	NSDictionary *_stocks; //good
 
-	NSDictionary *stocksDictionary // bad
+	NSDictionary *_stocksDictionary // bad
 
-	NSArray *stocksArray // bad
+	NSArray *_stocksArray // bad
 
 	```
 
@@ -92,6 +92,16 @@
 
 	@end
 	```
+* UI控件的命名写清楚是什么控件
+
+  ```objc
+  @interface EMBaseViewController:UIViewController
+
+  @property (nonatomic, strong) UILabel *nameLabel; //good
+  @property (nonatomic, strong) UILabel *name; //bad
+
+  @end
+  ```
 
 ###方法命名
 * 根据功能用#pragma marks 分组
@@ -198,65 +208,4 @@ NSString              | Good
 NSStringObject        | Not clear
 
 
-
-
-
 * 更详细的一些命名规则和方法 请查看苹果文档
-
-
-
-
-###图片命名规则
-* 通用图标, 功能开头，功能_名称_[状态]，如`btn_share_selected.png`。
-* 模块图标, 先模块名称开头，模块_功能_名称_[状态]，如`login_btn_share_normal.png`
-* 没有多状态的图片，不需要状态标记，如：`btn_share.png`
-* 对于两个模块都用到的图标，就认为是通用图片，不需要加前缀模块。通用图标命名为主，少部分模块内需要区别于通用图标的，才使用模块内图标方式命名
-* 命名尽量短，图片尽量复用。模块图标被复用后，得改名为通用图标命名方式，防止修改单个模块图标造成其他模块图标混乱
-
-
-```
-注：
-
-大图片或基本不频繁复用的图片， 图片存储于EM.bundle。读取的时候采用文件读取的方式读取图片。
-会频繁复用的图片，命名前使用前缀，图片存储于public.bundle。去读的时候通过名称读取，读取后系统会将图片缓存。
-
-
-模块:
-自选股:zxg
-弹窗:alert
-个股:stock
-大势:ds
-特色功能:tsgn
-搜索:srch
-系统:sys
-资讯:inf
-交易:trd
-积分:jf
-键盘:kb
-首页:home
-tabbar:tab
-navigationbar:nav
-弹出框:pop
-主力:zl
-开机帮助:help
-预警:alm
-
-
-功能：
-背景图片：bg
-标志性的图片我们取名为：logo；
-在页面上位置不固定并且带有链接的小图片我们取名为btn ；
-在页面上某一个位置连续出现，性质相同的链接栏目的图片我们取名：menu ；
-装饰用的照片我们取名：pic ；
-小标识(不知道怎么归类的):icon
-
-状态后缀 	普通:_normal
-			选中:_selected
-			禁用:_disabled
-
-segment背景图：segment
-放置在页面顶部的广告、装饰图案等长方形的图片我们取名：banner ；
-在页面上位置不固定并且带有链接的小图片我们取名为btn ；
-不带链接表示标题的图片我们取名：title
-有onmouse效果的图片，两张分别在原有文件名后加"_on"和"_off"命名。
-```
